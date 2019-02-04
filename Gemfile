@@ -7,6 +7,8 @@ ruby '2.5.3'
 gem 'rails', '~> 5.2.2'
 gem 'webpacker'
 gem 'react-rails'
+gem 'jquery-rails'
+gem 'haml'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use Puma as the app server
