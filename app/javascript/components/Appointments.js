@@ -8,8 +8,8 @@ class Appointments extends React.Component {
 
     this.state = {
       appointments: props.appointments,
-      input_title: 'Team startup meeting',
-      input_appt_time: 'Tomorrow at 9am',
+      title: 'Team startup meeting',
+      appt_time: 'Tomorrow at 9am',
     };
   }
 
@@ -20,15 +20,38 @@ class Appointments extends React.Component {
     }));
   };
 
+  addNewAppointment = appointment => {
+    const appointments = [
+      ...this.state.appointments,
+      appointment,
+    ];
+    this.setState(prevState => ({
+      ...prevState,
+      appointments: appointments.sort((a, b) => (new Date(a.appt_time) - new Date(b.appt_time))),
+    }));
+  };
+
+  handleFormSubmit = () => {
+    const { title, appt_time } = this.state;
+    const { addNewAppointment } = this;
+    $.post(
+      '/appointments',
+      { appointment: { title, appt_time } },
+    ).done(data => {
+      addNewAppointment(data);
+    });
+  };
+
   render () {
-    const { appointments, input_title, input_appt_time } = this.state;
-    const { handleUserInput } = this;
+    const { appointments, title, appt_time } = this.state;
+    const { handleUserInput, handleFormSubmit } = this;
     return (
       <React.Fragment>
         <AppointmentForm
-          input_title={input_title}
-          input_appt_time={input_appt_time}
+          input_title={title}
+          input_appt_time={appt_time}
           onUserInput={handleUserInput}
+          onFormSubmit={handleFormSubmit}
         />
         <AppointmentList appointments={appointments} />
       </React.Fragment>

@@ -1,4 +1,6 @@
 class AppointmentsController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
   def index
     @appointments = Appointment.order('appt_time ASC')
     @appointment = Appointment.new
@@ -6,7 +8,11 @@ class AppointmentsController < ApplicationController
 
   def create
     @appointment = Appointment.create(appointment_params)
-    @appointments = Appointment.order('appt_time ASC')
+    if @appointment.save
+      render json: @appointment
+    else
+      render json: @appointment.errors, status: :unprocessable_entity
+    end
   end
 
   private

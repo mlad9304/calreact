@@ -8,21 +8,27 @@ class AppointmentForm extends React.Component {
     });
   };
 
+  handleSubmit = e => {
+    const { onFormSubmit } = this.props;
+    e.preventDefault();
+    onFormSubmit();
+  };
+
   render () {
     const { input_title, input_appt_time } = this.props;
-    const { handleChange } = this;
+    const { handleChange, handleSubmit } = this;
     return (
       <React.Fragment>
         <h2>Make a new appointment</h2>
-        <form>
+        <form onSubmit={handleSubmit}>
           <input
-            name="input_title"
+            name="title"
             placeholder="Appointment title"
             value={input_title}
             onChange={handleChange}
           />
           <input
-            name="input_appt_time"
+            name="appt_time"
             placeholder="Date and Time"
             value={input_appt_time}
             onChange={handleChange}
@@ -38,6 +44,7 @@ AppointmentForm.propTypes = {
   input_title: PropTypes.string,
   input_appt_time: PropTypes.string,
   onUserInput: PropTypes.func,
+  onFormSubmit: PropTypes.func,
 };
 
 export default AppointmentForm
