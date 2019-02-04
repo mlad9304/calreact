@@ -6,7 +6,7 @@ class Appointment extends React.Component {
     return (
       <React.Fragment>
         <h3>{appointment.title}</h3>
-        <p>{appointment.appt_time}</p>
+        <p>{formatDate(appointment.appt_time)}</p>
       </React.Fragment>
     );
   }
