@@ -1,13 +1,14 @@
 import React from "react"
 import PropTypes from "prop-types"
+import { formatDate } from '../utils/format';
 class Appointment extends React.Component {
   render () {
     const { appointment } = this.props;
     return (
-      <React.Fragment>
+      <div className="appointment">
         <h3>{appointment.title}</h3>
         <p>{formatDate(appointment.appt_time)}</p>
-      </React.Fragment>
+      </div>
     );
   }
 }
