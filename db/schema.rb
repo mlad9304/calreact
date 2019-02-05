@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2019_02_04_142431) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "appointments", force: :cascade do |t|
     t.string "title"
     t.datetime "appt_time"
