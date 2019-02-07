@@ -1,7 +1,3 @@
-// Place all the styles related to the Appointments controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
 body {
     width: 500px;
     margin: auto;
@@ -20,6 +16,11 @@ body {
     border-radius: 0px;
     font-size: 20px;
     padding: 10px;
+}
+
+.submit-button:disabled {
+    background: #bbb;
+    cursor: not-allowed;
 }
 
 .appointment {

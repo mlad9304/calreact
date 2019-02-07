@@ -5,9 +5,9 @@ import 'react-datetime/css/react-datetime';
 class AppointmentForm extends React.Component {
   handleChange = e => {
     const { onUserInput } = this.props;
-    onUserInput({
-      [e.target.name]: e.target.value,
-    });
+    const fieldName = e.target.name;
+    const fieldValue = e.target.value;
+    onUserInput(fieldName, fieldValue);
   };
 
   handleSubmit = e => {
@@ -17,18 +17,16 @@ class AppointmentForm extends React.Component {
   };
 
   setApptTime = e => {
-    const name = 'appt_time';
-    const obj = {};
-    if(obj[name] = e.toDate()) {
-      this.props.onUserInput(obj);
-    }
+    const fieldName = 'appt_time';
+    const fieldValue = e.toDate();
+    this.props.onUserInput(fieldName, fieldValue);
   }
 
   render () {
-    const { input_title, input_appt_time } = this.props;
+    const { title, appt_time, formValid } = this.props;
     const { handleChange, handleSubmit, setApptTime } = this;
     const inputProps = {
-      name: 'input_appt_time',
+      name: 'appt_time',
     };
     return (
       <React.Fragment>
@@ -37,20 +35,19 @@ class AppointmentForm extends React.Component {
           <input
             name="title"
             placeholder="Appointment title"
-            value={input_title}
-            onChange={handleChange}
-          />
-          <input
-            name="appt_time"
-            placeholder="Date and Time"
-            value={input_appt_time}
+            value={title.value}
             onChange={handleChange}
           />
           <Datetime input={false} open={true} inputProps={inputProps}
-            value={input_appt_time}
+            value={appt_time.value}
             onChange={event => setApptTime(event)}
           />
-          <input type="submit" value="Make appointment" className="submit-button" />
+          <input
+            type="submit"
+            value="Make appointment"
+            className="submit-button"
+            disabled={!formValid}
+          />
         </form>
       </React.Fragment>
     );
@@ -58,8 +55,15 @@ class AppointmentForm extends React.Component {
 }
 
 AppointmentForm.propTypes = {
-  input_title: PropTypes.string,
-  input_appt_time: PropTypes.any,
+  title: PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    valid: PropTypes.bool.isRequired,
+  }),
+  appt_time: PropTypes.shape({
+    value: PropTypes.instanceOf(Date).isRequired,
+    valid: PropTypes.bool.isRequired,
+  }),
+  formValid: PropTypes.bool,
   onUserInput: PropTypes.func,
   onFormSubmit: PropTypes.func,
 };
