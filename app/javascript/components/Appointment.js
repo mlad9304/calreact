@@ -33,6 +33,9 @@ class Appointment extends React.Component {
           <h3>{appointment.title}</h3>
         </Link>
         <p>{formatDate(appointment.appt_time)}</p>
+        <Link to={`/appointments/${appointment.id}/edit`}>
+          Edit
+        </Link>
       </div>
     );
   }

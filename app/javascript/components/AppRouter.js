@@ -1,18 +1,18 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import AppHeader from './AppHeader';
 import Appointments from './Appointments';
 import Appointment from './Appointment';
-import AppHeader from './AppHeader';
+import AppointmentForm from './AppointmentForm';
 
 const AppRouter = (props) => {
     return (
         <Router>
             <React.Fragment>
-                <AppHeader />
-                <Route exact path="/" render={routeProps => (
-                    <Appointments {...routeProps} appointments={props.appointments} />
-                )} />
-                <Route path="/appointments/:id" component={Appointment} />
+                <Route path="/" component={AppHeader} />
+                <Route exact path="/" component={Appointments} />
+                <Route exact path="/appointments/:id" component={Appointment} />
+                <Route path="/appointments/:id/edit" component={AppointmentForm} />
             </React.Fragment>
         </Router>
     );
