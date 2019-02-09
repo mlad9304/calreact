@@ -43,7 +43,7 @@ class AppointmentForm extends React.Component {
 
   setApptTime = e => {
     const fieldName = 'appt_time';
-    const fieldValue = moment(e.toDate());
+    const fieldValue = e.toDate();
     this.handleUserInput(fieldName, fieldValue);
   }
 
@@ -72,8 +72,8 @@ class AppointmentForm extends React.Component {
         }
         break;
       case 'appt_time':
-        fieldValid = fieldValue.isValid() &&
-          fieldValue.isAfter();
+        fieldValid = moment(fieldValue).isValid() &&
+          moment(fieldValue).isAfter();
 
           if (!fieldValid) {
             formErrors = [' should not be in the past'];
@@ -130,6 +130,7 @@ class AppointmentForm extends React.Component {
   addAppointment = () => {
     const { title, appt_time } = this.state;
     const { resetFormErrors } = this;
+
     $.post(
       '/appointments',
       { 
