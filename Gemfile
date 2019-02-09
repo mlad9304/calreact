@@ -9,6 +9,7 @@ gem 'webpacker'
 gem 'react-rails'
 gem 'jquery-rails'
 gem 'haml'
+gem 'devise'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
